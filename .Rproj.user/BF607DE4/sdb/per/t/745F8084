@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(XML)\nlibrary(xml2)\nlibrary(rvest)\n\n\ndoc <- htmlParse(\"https://summerofcode.withgoogle.com/archive/2017/organizations\", encoding=\"UTF-8\", isURL = T)\n\n\ndoc.html = htmlTreeParse('https://summerofcode.withgoogle.com/archive/2017/organizations',\n                         useInternal = TRUE)\n\n\ndoc <- read_html(\"https://summerofcode.withgoogle.com/archive/2017/organizations\")\n\ndatain <- htmlTreeParse(doc, useInternalNodes = TRUE)\n\nxml_name(doc)\n\n\nid_or_class_xp <- \"//div[@class='organization-card__container']//text()\"\nxpathSApply( datain,id_or_class_xp,xmlValue)\n\nxpathApply(doc,id_or_class_xp,xmlValue)\n\nbaz <- xml_find_all(doc, \".//baz\")\n\nxmlApply(datain, xmlName)\n\n\n\n\n\n\n\n\ntechnologies\norganizations\ndescription\nlinks\nlogos\n",
+    "created" : 1513577337412.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3074396133",
+    "id" : "745F8084",
+    "lastKnownWriteTime" : 1513586455,
+    "last_content_update" : -2147483648,
+    "path" : "C:/Users/Thiloshon/RProjects/GSoC Stats/scrape.R",
+    "project_path" : "scrape.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

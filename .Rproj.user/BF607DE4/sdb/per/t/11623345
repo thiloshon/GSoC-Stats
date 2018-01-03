@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "# organization list scraping\n\ndoc <-\n    read_html(\"https://summerofcode.withgoogle.com/archive/2017/organizations\")\n\norganizations <- doc %>%\n    html_nodes(\".organization-card__name\") %>%\n    html_text()\n\ndescription <- doc %>%\n    html_nodes(\".organization-card__tagline\") %>%\n    html_text()\n\nlinks <- doc %>%\n    html_nodes(\".organization-card__link\") %>%\n    html_attr('href')\n\nlinks <-\n    paste(\"https://summerofcode.withgoogle.com\", links,  sep = \"\")\n\nlogos <- doc %>%\n    html_nodes(\"org-logo\") %>%\n    html_attr('data')\n\nlogos <- gsub(\"'//\", \"\", gsub(\"',\", \"\", sapply(strsplit(logos, \" \"), '[[', 3)))\n\n\n# organization scraping\n\ntechnologies <- unlist(lapply(links, function(x) {\n    page <- read_html(x)\n    \n    technologies <- page %>%\n        html_nodes(\".organization__tag--technology\") %>%\n        html_text()\n    technologies <- paste(technologies, collapse  = \" , \")\n    print(technologies)\n    return(technologies)\n}))\n\ncategory <- unlist(lapply(links, function(x) {\n    page <- read_html(x)\n    \n    technologies <- page %>%\n        html_nodes(\".organization__tag--category a\") %>%\n        html_text()\n    technologies <- paste(technologies, collapse  = \" , \")\n    print(technologies)\n    return(technologies)\n}))\n\ntopics <- unlist(lapply(links, function(x) {\n    page <- read_html(x)\n    \n    technologies <- page %>%\n        html_nodes(\".organization__tag--topic\") %>%\n        html_text()\n    technologies <- paste(technologies, collapse  = \" , \")\n    print(technologies)\n    return(technologies)\n}))\n\norganizationWebsiteURL <- unlist(lapply(links, function(x) {\n    page <- read_html(x)\n    \n    technologies <- page %>%\n        html_nodes(\".page-organizations__org-url a\") %>%\n        html_attr('href')\n    technologies <- paste(technologies, collapse  = \" , \")\n    print(technologies)\n    return(technologies)\n}))\n\n\nnumberOfSuccessfulProjects <- unlist(lapply(links, function(x) {\n    page <- read_html(x)\n    \n    technologies <- page %>%\n        html_nodes(\".archive-project-card__student-name\") %>%\n        html_attr('href')\n    technologies <- length(technologies)\n    print(technologies)\n    return(technologies)\n}))\n\n\norganizationTable <-\n    data.frame(\n        \"OrganizationName\" = organizations,\n        \"Description\" = description,\n        \"Category\" = category,\n        \"Technologies\" = technologies,\n        \"Topics\" = topics,\n        \"CompletedProjects\" = numberOfSuccessfulProjects,\n        \"OrganizationWebsite\" = organizationWebsiteURL,\n        \"OrganizationURL\" = links,\n        \"Logo\" = logos\n    )\n\norganizationTable[] <- lapply(organizationTable, as.character)\n\n",
+    "created" : 1513590006539.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "10575890",
+    "id" : "11623345",
+    "lastKnownWriteTime" : 1513590000,
+    "last_content_update" : 1513590000,
+    "path" : "C:/Users/Thiloshon/RProjects/GSoC Stats/scrapeGSOC2017.R",
+    "project_path" : "scrapeGSOC2017.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

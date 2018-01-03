@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(ggplot2)\n\ncategoryMatrix <-\n    sort(table(organizationTable$Category), decreasing = T)\ncategoryMatrix <- as.data.frame(categoryMatrix)\n\n\ntechnoList <-\n    unlist(strsplit(organizationTable$Technologies, \" , \"))\ntechnoList <- trimws(technoList)\ntechnoMatrix <- sort(table(technoList), decreasing = T)\n\n\ntopicList <- unlist(strsplit(organizationTable$Topics, \" , \"))\ntopicList <- trimws(topicList)\ntopicMatrix <- sort(table(topicList), decreasing = T)\n\ntopicMatrix\n\norganizationTable[order(as.numeric(organizationTable$CompletedProjects),\n                        decreasing = T), c(1, 6)]\n\n# levels(categoryMatrix$Var1) <- gsub(\"and\", \"and \\n\", levels(categoryMatrix$Var1))\n\nggplot(categoryMatrix, aes(x = Var1, y = Freq)) + geom_bar(stat = \"identity\") + theme(axis.text.x = element_text(angle = 60, hjust = 1))\n\n\nggplot(categoryMatrix,\n       aes(x = \"\", y = Freq, fill = Var1)) +\n    geom_bar(stat = \"identity\", width = 1) +\n    coord_polar(\"y\", start = 0) +\n    geom_text(aes(y = Freq / 201 + c(0, cumsum(Freq)[-length(Freq)]),\n                  label = percent(Freq / 100)), size = 5)\n",
+    "created" : 1513589844599.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1616298683",
+    "id" : "AE8A18E9",
+    "lastKnownWriteTime" : 1513596820,
+    "last_content_update" : -2147483648,
+    "path" : "C:/Users/Thiloshon/RProjects/GSoC Stats/stats.R",
+    "project_path" : "stats.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
