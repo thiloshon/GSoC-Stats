@@ -1,7 +1,10 @@
-# organization list scraping
+library(rvest)
 
+# Page to Scrape
 doc <-
     read_html("https://summerofcode.withgoogle.com/archive/2017/organizations")
+
+# organization scraping
 
 organizations <- doc %>%
     html_nodes(".organization-card__name") %>%
@@ -25,7 +28,7 @@ logos <- doc %>%
 logos <- gsub("'//", "", gsub("',", "", sapply(strsplit(logos, " "), '[[', 3)))
 
 
-# organization scraping
+#  Scraping individual elements
 
 technologies <- unlist(lapply(links, function(x) {
     page <- read_html(x)
@@ -83,6 +86,7 @@ numberOfSuccessfulProjects <- unlist(lapply(links, function(x) {
     return(technologies)
 }))
 
+# Creating Dataset
 
 organizationTable <-
     data.frame(
